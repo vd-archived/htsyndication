@@ -388,3 +388,21 @@ p.copyright {
 	max-height: 180px;
 	max-width: 180px;
 }
+.panel-title i {
+	color: #FFFFFF;
+	font-weight: bold;
+	float:right;
+	cursor: pointer;
+}
+.widgets-cols {
+	min-height: 100px;
+}
+
+.portlet-placeholder {
+	display: block;
+	width: 100%;
+	min-height: 200px;
+	background-color:#0066CC;
+}
+.ui-corner-all {
+}

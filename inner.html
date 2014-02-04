@@ -13,7 +13,8 @@
     <link href="css/bootstrap.css" rel="stylesheet">
 		<link href="css/bootstrap-theme.css" rel="stylesheet" type="text/css">
 		<link href="css/font-awesome.css" rel="stylesheet" type="text/css">
-
+		
+		<link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.9.2.custom.min.css">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -148,9 +149,9 @@
 			<!-- Wrap the rest of the page in another container to center all the content. -->
 			<div class="container">
 				<!-- Three columns of text below the carousel -->
-				<div class="row marketing">
-					<div class="col-lg-4">
-						<div class="panel panel-primary">
+				<div class="row widgets-row">
+					<div class="col-lg-4 widgets-cols">
+						<div id="panel1" class="panel panel-primary handle">
 							<div class="panel-heading">
 								<h3 class="panel-title">Entertainment</h3>
 							</div>
@@ -158,9 +159,25 @@
 								<div style="display:block;min-width:200px;min-height: 200px;"></div>
 							</div>
 						</div>
+						<div id="panel2" class="panel panel-primary handle">
+							<div class="panel-heading">
+								<h3 class="panel-title">Fashion</h3>
+							</div>
+							<div class="panel-body">
+								<div style="display:block;min-width:200px;min-height: 200px;"></div>
+							</div>
+						</div>
+						<div id="panel3" class="panel panel-primary handle">
+							<div class="panel-heading">
+								<h3 class="panel-title">Columinist</h3>
+							</div>
+							<div class="panel-body">
+								<div style="display:block;min-width:200px;min-height: 200px;"></div>
+							</div>
+						</div>
 					</div><!-- /.col-lg-4 -->
-					<div class="col-lg-4">
-						<div class="panel panel-primary">
+					<div class="col-lg-4 widgets-cols">
+						<div id="panel4" class="panel panel-primary handle">
 							<div class="panel-heading">
 								<h3 class="panel-title">Sports</h3>
 							</div>
@@ -169,8 +186,8 @@
 							</div>
 						</div>
 					</div><!-- /.col-lg-4 -->
-					<div class="col-lg-4">
-						<div class="panel panel-primary">
+					<div class="col-lg-4 widgets-cols">
+						<div id="panel5" class="panel panel-primary handle">
 							<div class="panel-heading">
 								<h3 class="panel-title">Politics</h3>
 							</div>
@@ -277,6 +294,68 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.9.2.custom.min.js"></script>
+		<script type="text/javascript" src="js/jquery.cookie.js"></script>
 		<script src="js/docs.min.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$( ".widgets-cols" ).sortable({
+					connectWith: ".widgets-cols",
+					handle: ".panel-heading",
+					cancel: ".portlet-toggle",
+					placeholder: "portlet-placeholder ui-corner-all",
+					update: function(){
+							$.cookie('widgets-items', getItems('.widgets-row'));
+					}
+				});
+		 
+				$( ".panel" )
+					.addClass( "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" )
+					.find( ".panel-heading" )
+						.addClass( "ui-widget-header ui-corner-all" )
+						.find('.panel-title')
+						.prepend( "<i class='fa fa-angle-down'></i>");
+		 
+				$( ".panel-title i" ).click(function() {
+					var icon = $( this );
+					icon.toggleClass( "fa-angle-down fa-angle-up" );
+					icon.closest( ".panel" ).find( ".panel-body" ).toggle();
+				});
+				// Get all items from a container
+				function getItems(container) {
+						var columns = [];
+						$( container + " .widgets-cols" ).each(function( i ) {
+							columns.push($(this).sortable('toArray').join(','));
+						});
+						return columns.join('|');
+				}
+				// Load items
+				function loadItemsFromCookie(name) {
+						if ( $.cookie(name) != null ) {
+							renderItems($.cookie(name), '.widgets-row');
+						}
+						else {
+								alert('No items saved in "' + name + '".');
+						}
+				}
+				 
+				function renderItems(items, container) {
+					var curr_columns = [];
+					$( container + " .widgets-cols" ).each(function( i ) {
+						curr_columns.push($(this));
+					});
+					var columns = items.split('|');
+					for ( var c in columns ) {
+						if ( columns[c] != '' ) {
+								var items = columns[c].split(',');
+								for ( var i in items ) {
+									$(container + " #" + items[i]).appendTo(curr_columns[c]);
+								}
+						}
+					}
+				}
+				loadItemsFromCookie('widgets-items');
+			});
+		</script>
   </body>
 </html>

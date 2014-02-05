@@ -3,7 +3,7 @@
 /* Padding below the footer and lighter body text */
 
 body {
-  padding-bottom: 40px;
+  padding-bottom: 00px;
   color: #5a5a5a;
 	background-color: #f7f7f7;
 }
@@ -405,4 +405,47 @@ p.copyright {
 	background-color:#0066CC;
 }
 .ui-corner-all {
+}
+.widgets-cols .panel-body {
+	padding: 0px;
+}
+.widgets-cols .panel-body .panel-content, .widgets-cols .panel-body .tab-content {
+	padding: 15px;
+	background-color:#FFFFFF;
+	width:100%;
+	height:200px;
+	overflow-y: scroll;
+	position:relative;
+}
+.widgets-cols .nav-tabs > li > a {
+	font-size: 12px;
+	padding: 10px 5px;
+}
+.s-news {
+	display: block;
+	margin-bottom: 10px;
+}
+.s-title {
+	font-size: 16px;
+	font-weight: bold;
+	margin-bottom: 0px;
+	color:#000000;
+}
+.s-intro, .s-intro a, .s-intro a:visited, .s-intro a:focus {
+	font-size: 10px;
+	font-weight: bold;
+	margin-bottom: 2px;
+	color:#666666;
+}
+.s-story {
+	font-size: 12px;
+	color:#000000;
+	text-align:justify;
+}
+.image-heading {
+	text-align: center;
+	font-size: 16px;
+	font-weight: bold;
+	margin-bottom: 10px;
+	margin-top: 5px;
 }
